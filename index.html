@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="lib/jquery.mobile-1.4.5/jquery.mobile.theme-1.4.5.css"/>
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/my_info.css"/>
+    <link rel="stylesheet" href="css/login_register.css"/>
+    <link rel="stylesheet" href="css/basic_info.css"/>
+    <link rel="stylesheet" href="css/add_car.css"/>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="lib/backbone-min.js"></script>
+    <script src="lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="js/reg_exp.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.constants.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+<body id="appBody" ng-app="application">
+<!-- /首页 -->
+<div ng-controller="MainPage" data-role="page" id="mainPage">
+
+    <div class="header-self-defined" data-role="header">
+        <h4>骏驰车行</h4>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content body-self-defined">
+        主页
+    </div><!-- /content -->
+    <div class="footer-self-defined" data-role="footer">
+        <div class="page-link">
+            <a href="#">
+                <div class="page-link-pic fa fa-home"></div>
+                <div class="page-link-info">首页</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#">
+                <div class="page-link-pic fa fa-first-order"></div>
+                <div class="page-link-info">订单</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#servicePage">
+                <div class="page-link-pic fa fa-server"></div>
+                <div class="page-link-info">服务</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#personInfo">
+                <div class="page-link-pic fa fa-user"></div>
+                <div class="page-link-info">我的</div>
+            </a>
+        </div>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<!-- 个人信息页面 -->
+<div ng-controller="PersonInfoPage" data-role="page" id="personInfo" class="grey-body">
+
+    <div class="header-self-defined-clear">
+        <a href="#mainPage">&lt;</a>
+    </div><!-- /header -->
+
+    <div class="login-title-pic">
+        <img src="img/background.jpg"/>
+        <div class="login-icon-container">
+            <div class="login-icon-col">&nbsp;</div>
+            <div class="login-icon-col">
+                <div class="login-register-icon"></div>
+                <div ng-hide="pageInfo.loginIconHide"><a href="#loginPage">登录/注册</a></div>
+                <div ng-hide="pageInfo.logoutIconHide" ng-click="logout()"><a href="#">退出登录</a></div>
+            </div>
+            <div class="login-icon-col">&nbsp;</div>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="choice-list-item-list">
+        <div class="choice-list-item">
+            <div class="choice-list-item-left">
+                   <div class="fa fa-envelope-square"></div>
+            </div>
+            <a href="">
+            <div class="choice-list-item-right">
+                订单记录<div class="fa fa-arrow-circle-right pull-right arrow-padding">&nbsp;</div>
+            </div>
+            </a>
+        </div>
+        <div class="choice-list-item">
+            <div class="choice-list-item-left">
+                <div class="fa fa-user"></div>
+            </div>
+            <a href="#basicInfoPage">
+                <div class="choice-list-item-right-last">
+                    基础信息<div class="fa fa-arrow-circle-right pull-right arrow-padding">&nbsp;</div>
+                </div>
+            </a>
+        </div>
+    </div><!-- /content -->
+</div><!-- /page -->
+
+
+<!-- 登录页面 -->
+<div ng-controller="LoginPage" data-role="page" id="loginPage">
+
+    <div class="login-header-self-defined-blur login-header">
+        <a href="#personInfo" class="login-back-link pull-left">&lt;</a>
+        <b>登陆</b>
+        <a href="#registerPage" class="pull-right login-margin-right">注册</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content body-self-defined">
+        <div><input type="text" ng-model="user.name" placeholder="用户名称"/></div>
+        <div><input type="password" ng-model="user.password" placeholder="密码"/></div>
+        <div><button ng-click="login()" class="ui-btn ui-btn-b">登录</button></div>
+    </div><!-- /content -->
+
+    <a id="showLoginFormDialogLink" href="#loginFormDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+    <div data-role="popup" id="loginFormDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+        <div role="main" class="ui-content">
+            用户名由<b>数字字母组成，长度6-12位。</b>
+            用户密码由<b>数字字母组成，必需大小写混合，有数字，长度超过8位。</b>
+            <br/>
+            <b style="color:red;">{{alert.info}}</b>校验失败！
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+        </div>
+    </div>
+
+    <a id="showLoginStatusLink" href="#loginStatusDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+    <div data-role="popup" id="loginStatusDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+        <div role="main" class="ui-content">
+            {{alert.loginStatus}}
+            <br/>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+        </div>
+    </div>
+
+</div><!-- /page -->
+
+
+<!-- 注册页面 -->
+<div ng-controller="RegisterPage" data-role="page" id="registerPage">
+
+    <div class="login-header-self-defined-blur login-header">
+        <a href="#loginPage" class="login-back-link pull-left">&lt;</a>
+        <b>注册</b>
+        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content body-self-defined">
+        <div><input type="text"  ng-model="user.name" placeholder="用户名称"/></div>
+        <div><input type="password" ng-model="user.password" placeholder="密码"/></div>
+        <div><button ng-click="register()" class="ui-btn ui-btn-b">注册</button></div>
+    </div><!-- /content -->
+
+    <a id="showRegisterFormDialogLink" href="#registerFormDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+    <div data-role="popup" id="registerFormDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+        <div role="main" class="ui-content">
+            用户名由<b>数字字母组成，长度6-12位。</b>
+            用户密码由<b>数字字母组成，必需大小写混合，有数字，长度超过8位。</b>
+            <br/>
+            <b style="color:red;">{{alert.info}}</b>校验失败！
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+        </div>
+    </div>
+
+    <a id="showRegisterStatusLink" href="#registerStatusDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+    <div data-role="popup" id="registerStatusDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+        <div role="main" class="ui-content">
+            {{alert.registerStatus}}
+            <br/>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+        </div>
+    </div>
+
+</div><!-- /page -->
+
+<!-- 基础信息页面 -->
+<div ng-controller="BasicInfoPage" data-role="page" id="basicInfoPage" class="grey-body">
+
+    <div class="login-header-self-defined-blur login-header">
+        <a href="#personInfo" class="login-back-link pull-left">&lt;</a>
+        <b>基础信息</b>
+        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    </div><!-- /header -->
+
+    <div class="body-self-defined">
+        <div ng-hide="pageInfo.contentHide">
+            <br/>
+            <div class="basic-info-container">
+                <div class="basic-info-container-left">
+                    <label for="personImageFileInput"><img src="img/head.jpg" alt="image"></label>
+                </div>
+                <div class="basic-info-container-right">
+                    <div>
+                        用户名：{{user.name}}
+                        <br/>
+                        角色：{{user.role}}
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="car-list-container">
+                <div class="car-list-item" ng-repeat="car in car.list">
+                    <div class="car-list-item-left">
+                        <label><img src="img/head.jpg" alt="image"></label>
+                    </div>
+                    <div class="car-list-item-right">
+                        <div>
+                            车型：{{car.get('carType')}}
+                            <br/>
+                            描述：{{car.get('description')}}
+                        </div>
+                        <div class="car-list-item-action">
+                            <div class="ui-btn ui-btn-a">更改</div>
+                            <div title="{{car.get('id')}}" class="ui-btn ui-btn-a car-list-item-delete" cardeleteaction>删除</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div><a href="#addCarInfoPage"><button ng-click="" class="ui-btn ui-btn-b">增加</button></a></div>
+        </div>
+        <div ng-show="pageInfo.contentHide">用户未登陆！</div>
+
+        <a id="showCarDeleteStatusLink" href="#carDeleteStatusDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+        <div data-role="popup" id="carDeleteStatusDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+            <div role="main" class="ui-content">
+                {{alert.registerStatus}}
+                <br/>
+                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+            </div>
+        </div>
+        <input id="personImageFileInput" type="file" class="ui-input-clear-hidden"/>
+    </div><!-- /content -->
+
+</div><!-- /page -->
+
+<!-- 增加车辆信息页面 -->
+<div ng-controller="AddCarInfoPage" data-role="page" id="addCarInfoPage" class="grey-body">
+
+    <div class="login-header-self-defined-blur login-header">
+        <a href="#basicInfoPage" class="login-back-link pull-left">&lt;</a>
+        <b>增加车辆信息</b>
+        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    </div><!-- /header -->
+
+    <div class="body-self-defined">
+        <div ng-hide="pageInfo.contentHide">
+            <div class="ui-field-contain">
+                <select id="carRegisterCarTypeId"  ng-model="car.carType">
+                    <option value="{{carType.id}}" ng-repeat="carType in car.list">{{carType.name}}</option>
+                </select>
+            </div>
+            <div class="ui-field-contain">
+                <textarea  ng-model="car.description" placeholder="车辆描述信息"></textarea>
+            </div>
+        </div>
+        <div ng-show="pageInfo.contentHide">用户未登陆！</div>
+    </div><!-- /content -->
+
+    <a id="showCarRegisterStatusLink" href="#carRegisterStatusDialog" data-rel="popup" data-position-to="window" data-transition="pop"></a>
+    <div data-role="popup" id="carRegisterStatusDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="width:80%;margin-left:10%;">
+        <div role="main" class="ui-content">
+            {{alert.registerStatus}}
+            <br/>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">确定</a>
+        </div>
+    </div>
+
+    <div ng-click="addCar()" class="footer-self-defined mock-footer-button-bottom">
+        增加
+    </div>
+</div><!-- /page -->
+
+<!-- 服务列表页面 -->
+<div ng-controller="ServicePage" data-role="page" id="servicePage">
+
+    <div class="header-self-defined" data-role="header">
+        <h4>骏驰车行</h4>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content body-self-defined">
+        <div ng-hide="pageInfo.contentHide">
+            <div>
+                <ul data-role="listview">
+                    <li><a href="#serviceReservePage">服务预约</a></li>
+                    <li><a href="#">预约日历</a></li>
+                    <li><a href="#">服务查询</a></li>
+                </ul>
+            </div>
+        </div>
+        <div ng-show="pageInfo.contentHide">用户未登陆！</div>
+    </div><!-- /content -->
+    <div class="footer-self-defined" data-role="footer">
+        <div class="page-link">
+            <a href="#mainPage">
+                <div class="page-link-pic fa fa-home"></div>
+                <div class="page-link-info">首页</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#">
+                <div class="page-link-pic fa fa-first-order"></div>
+                <div class="page-link-info">订单</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#">
+                <div class="page-link-pic fa fa-server"></div>
+                <div class="page-link-info">服务</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#personInfo">
+                <div class="page-link-pic fa fa-user"></div>
+                <div class="page-link-info">我的</div>
+            </a>
+        </div>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<!-- 增加订单页面 -->
+<div ng-controller="ServiceReservePage" data-role="page" id="serviceReservePage">
+
+    <div class="header-self-defined" data-role="header">
+        <h4>骏驰车行</h4>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content body-self-defined">
+        <div>
+        </div>
+    </div><!-- /content -->
+    <div class="footer-self-defined" data-role="footer">
+        <div class="page-link">
+            <a href="#mainPage">
+                <div class="page-link-pic fa fa-home"></div>
+                <div class="page-link-info">首页</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#">
+                <div class="page-link-pic fa fa-first-order"></div>
+                <div class="page-link-info">订单</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#servicePage">
+                <div class="page-link-pic fa fa-server"></div>
+                <div class="page-link-info">服务</div>
+            </a>
+        </div>
+        <div class="page-link">
+            <a href="#personInfo">
+                <div class="page-link-pic fa fa-user"></div>
+                <div class="page-link-info">我的</div>
+            </a>
+        </div>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+</body>
+</html>

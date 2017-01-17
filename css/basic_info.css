@@ -1,0 +1,93 @@
+.basic-info-container{
+    clear: both;
+    border-top: solid 1px lightgrey;
+    border-bottom: solid 1px lightgrey;
+    background: white;
+    height: 6em;
+}
+
+.basic-info-container-left{
+    float: left;
+    width: 6em;
+    height: 100%;
+    border-right: solid 1px lightgrey;
+}
+.basic-info-container-left>label{
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+.basic-info-container-left>label>img{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 2em;
+}
+
+.basic-info-container-right{
+    float: left;
+}
+
+.basic-info-container-right>div{
+    padding: 1em;
+    font-size: 0.7em;
+    line-height: 1.5em;
+}
+
+.car-list-container{
+    clear: both;
+    border-top: solid 1px lightgrey;
+    background: white;
+}
+
+.car-list-item{
+    position: relative;
+    border-bottom: solid 1px lightgrey;
+    clear: both;
+    height: 6em;
+    width: 100%;
+}
+
+.car-list-item-left{
+    float: left;
+    width: 6em;
+    height: 100%;
+    border-right: solid 1px lightgrey;
+}
+.car-list-item-left>label{
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+.car-list-item-left>label>img{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 2em;
+}
+
+.car-list-item-right{
+    float: left;
+}
+
+.car-list-item-right>div{
+    padding: 1em;
+    font-size: 0.7em;
+    line-height: 1.5em;
+}
+
+.car-list-item-action{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    clear: both;
+    font-size: 0.7em;
+}
+
+.car-list-item-action>div{
+    float: left;
+}
